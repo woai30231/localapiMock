@@ -13,6 +13,10 @@ router.get("/api/objlist",(req,res)=>{
         { value: 'v9', label: '标签9' },
         { value: 'v10', label: '标签10' }
       ];
-      res.json(objList);
+      res.json({
+        code:200,
+        message:'获取列表成功',
+        data:objList
+      });
 })
 module.exports = router;
