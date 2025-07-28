@@ -20,7 +20,71 @@ router.get("/api/objlist",(req,res)=>{
       });
 });
 router.post("/api/signup",(req,res)=>{
-  console.log(req.body);
+  // throw new Error("在请求这个接口的地方有一个错误！")
+  // let data = ''
+  // console.log("走这里了吗？")
+  // req.on('data',(chunk)=>{
+  //   data += chunk;
+  // })
+  // req.on("end",(e)=>{
+  //   console.log(e)
+  //   console.log("结束")
+  //   console.log(data);
+  //   console.log(JSON.parse(data).username)
+  // })
+  const {username,email,password} = req.body;
+  if(!username || !email || !password){
+    return res.status(400).json({
+      code:400,
+      message:"用户名、邮箱和密码不能为空",
+      data:{}
+    })
+  };
+  if(username.length<3 || username.length <20){
+    return res.status(400).json({
+      code : 400,
+      message:"用户名长度必须在3-20个字符之间",
+      data:{}
+    })
+  }
+
+  // 2. 检查字段长度
+  if (username.length < 3 || username.length > 20) {
+    return res.status(400).json({
+      code: 400,
+      message: '用户名长度必须在3-20个字符之间',
+      data: {}
+    });
+  }
+  
+  if (password.length < 6) {
+    return res.status(400).json({
+      code: 400,
+      message: '密码长度不能少于6个字符',
+      data: {}
+    });
+  }
+  
+  // 3. 检查邮箱格式
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email)) {
+    return res.status(400).json({
+      code: 400,
+      message: '邮箱格式不正确',
+      data: {}
+    });
+  }
+
+   // 4. 检查用户名是否包含特殊字符
+   const usernameRegex = /^[a-zA-Z0-9_]+$/;
+   if (!usernameRegex.test(username)) {
+     return res.status(400).json({
+       code: 400,
+       message: '用户名只能包含字母、数字和下划线',
+       data: {}
+     });
+   }
+  // if()
   res.status(200).json({
     code:200,
     message:'注册账号成功',
