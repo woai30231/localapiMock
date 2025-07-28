@@ -18,5 +18,13 @@ router.get("/api/objlist",(req,res)=>{
         message:'获取列表成功',
         data:objList
       });
+});
+router.post("/api/signup",(req,res)=>{
+  console.log(req.body);
+  res.status(200).json({
+    code:200,
+    message:'注册账号成功',
+    data:{}
+  })
 })
 module.exports = router;
