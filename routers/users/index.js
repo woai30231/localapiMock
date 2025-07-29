@@ -1,5 +1,23 @@
 const express = require('express');
 const router = express.Router();
+
+//获取用户列表
+router.get('/api/userlist',(req,res)=>{
+  res.status(200).json([
+    {
+      id:2424,
+      name:'xiaoming',
+      email:'xiaoming@qq.com'
+    },
+    {
+      id:32424,
+      name:'xiaohong',
+      email:'xiaohong@qq.com'
+    }
+  ])
+})
+
+
 router.get("/api/objlist",(req,res)=>{
     const objList = [
         { value: 'v1', label: '标签1' },
@@ -40,7 +58,8 @@ router.post("/api/signup",(req,res)=>{
       data:{}
     })
   };
-  if(username.length<3 || username.length <20){
+  console.log(username)
+  if(username.length<3 || username.length >20){
     return res.status(400).json({
       code : 400,
       message:"用户名长度必须在3-20个字符之间",
