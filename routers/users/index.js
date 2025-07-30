@@ -3,18 +3,34 @@ const router = express.Router();
 
 //获取用户列表
 router.get('/api/userlist',(req,res)=>{
-  res.status(200).json([
-    {
-      id:2424,
-      name:'xiaoming',
-      email:'xiaoming@qq.com'
-    },
-    {
-      id:32424,
-      name:'xiaohong',
-      email:'xiaohong@qq.com'
-    }
-  ])
+  res.status(200).json({
+    code:200,
+    message:'获取用户列表数据成功',
+    data:[
+      {
+        id:2424,
+        name:'xiaoming',
+        email:'xiaoming@qq.com'
+      },
+      {
+        id:32424,
+        name:'xiaohong',
+        email:'xiaohong@qq.com'
+      }
+    ]
+  })
+})
+
+router.get("/api/user",(req,res)=>{
+    res.status(200).json({
+      code:200,
+      message:'获取用户信息成功',
+      data:{
+        name:'小王',
+        address:'城南',
+        email:'xx@xx.com'
+      }
+    })
 })
 
 
