@@ -7,4 +7,7 @@ router.use(users);
 
 const uploadRouter = require("./upload/upload.js");
 router.use(uploadRouter);
+
+const testapi = require("./test");
+router.use(testapi)
 module.exports = router;

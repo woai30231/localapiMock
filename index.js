@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-const port = 6666;
+const port = 6753;
 const path = require('path');
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
@@ -13,10 +13,6 @@ app.get('/', (req, res) => {
 });
 
 app.use(Router);
-
-// app.listen(port, () => {
-//   console.log(`服务器已启动，监听端口 ${port}`);
-// }); 
 
 const { sequelize } = require('./models/file');
 
