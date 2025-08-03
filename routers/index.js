@@ -1,6 +1,12 @@
 const express = require("express");
 const router = express.Router();
 
+// 在文件顶部添加
+const tokenRouter = require('./token/step1-basic-login');
+
+// 在router.use()部分添加
+router.use('/token', tokenRouter);
+
 //api路由接口
 const users = require('./users');
 router.use(users);

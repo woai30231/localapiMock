@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Token登录测试</title>
+    <style>
+        body { font-family: Arial, sans-serif; max-width: 600px; margin: 50px auto; padding: 20px; }
+        .section { margin: 20px 0; padding: 20px; border: 1px solid #ddd; border-radius: 5px; }
+        button { padding: 10px 20px; margin: 5px; cursor: pointer; }
+        input { padding: 8px; margin: 5px; width: 200px; }
+        .result { margin: 10px 0; padding: 10px; background: #f5f5f5; border-radius: 3px; }
+        .token { background: #e8f4f8; padding: 10px; word-break: break-all; }
+    </style>
+</head>
+<body>
+    <h1>Token登录流程测试</h1>
+    
+    <div class="section">
+        <h2>1. 登录</h2>
+        <input type="text" id="username" placeholder="用户名" value="admin">
+        <input type="password" id="password" placeholder="密码" value="123456">
+        <button onclick="login()">登录</button>
+        <div id="loginResult" class="result"></div>
+    </div>
+
+    <div class="section">
+        <h2>2. 获取用户信息</h2>
+        <button onclick="getProfile()">获取用户信息</button>
+        <div id="profileResult" class="result"></div>
+    </div>
+
+    <div class="section">
+        <h2>3. 退出登录</h2>
+        <button onclick="logout()">退出登录</button>
+        <div id="logoutResult" class="result"></div>
+    </div>
+
+    <div class="section">
+        <h2>当前Token</h2>
+        <div id="currentToken" class="token">未登录</div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:6753';
+        
+        function updateTokenDisplay() {
+            const token = localStorage.getItem('token') || '未登录';
+            document.getElementById('currentToken').textContent = token;
+        }
+
+        async function login() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                const response = await fetch(`${API_BASE}/token/login`, {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({username, password})
+                });
+                
+                const data = await response.json();
+                document.getElementById('loginResult').innerHTML = 
+                    `<strong>返回数据:</strong><br>${JSON.stringify(data, null, 2)}`;
+                
+                if (data.code === 200) {
+                    localStorage.setItem('token', data.data.token);
+                    updateTokenDisplay();
+                }
+            } catch (error) {
+                document.getElementById('loginResult').innerHTML = 
+                    `<strong>错误:</strong> ${error.message}`;
+            }
+        }
+
+        async function getProfile() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                document.getElementById('profileResult').innerHTML = 
+                    '<strong>请先登录</strong>';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/token/profile`, {
+                    headers: {'Authorization': `Bearer ${token}`}
+                });
+                
+                const data = await response.json();
+                document.getElementById('profileResult').innerHTML = 
+                    `<strong>返回数据:</strong><br>${JSON.stringify(data, null, 2)}`;
+            } catch (error) {
+                document.getElementById('profileResult').innerHTML = 
+                    `<strong>错误:</strong> ${error.message}`;
+            }
+        }
+
+        async function logout() {
+            const token = localStorage.getItem('token');
+            if (!token) {
+                document.getElementById('logoutResult').innerHTML = 
+                    '<strong>请先登录</strong>';
+                return;
+            }
+            
+            try {
+                const response = await fetch(`${API_BASE}/token/logout`, {
+                    method: 'POST',
+                    headers: {'Authorization': `Bearer ${token}`}
+                });
+                
+                const data = await response.json();
+                document.getElementById('logoutResult').innerHTML = 
+                    `<strong>返回数据:</strong><br>${JSON.stringify(data, null, 2)}`;
+                
+                localStorage.removeItem('token');
+                updateTokenDisplay();
+            } catch (error) {
+                document.getElementById('logoutResult').innerHTML = 
+                    `<strong>错误:</strong> ${error.message}`;
+            }
+        }
+
+        // 初始化显示
+        updateTokenDisplay();
+    </script>
+</body>
+</html>
