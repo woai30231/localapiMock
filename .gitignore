@@ -1,1 +1,8 @@
 node_modules/
+
+*.example
+**/*.example
+.*/*.*.example
+
+**/SECRET_KEY_GUIDE.md
+**/*.md

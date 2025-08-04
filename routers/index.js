@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 
 // 在文件顶部添加
-const tokenRouter = require('./token/step1-basic-login');
+const tokenRouter = require('./token/step4-enhanced-login');
 
 // 在router.use()部分添加
 router.use('/token', tokenRouter);

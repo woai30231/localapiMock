@@ -4,6 +4,7 @@ const port = 6753;
 const path = require('path');
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
+app.use(express.static(path.resolve(__dirname,'./public')))
 app.use("/client-upload",express.static(path.resolve(__dirname,'./client-upload')))
 
 const Router = require("./routers");
