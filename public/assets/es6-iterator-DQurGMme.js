@@ -1,0 +1,1 @@
+import{d as o,r as s,c as u,a as n,t as r,u as l,F as m,o as c}from"./index-XMO9d-si.js";const d=o({__name:"es6-iterator",setup(p){const t={name:s("小明")},a={username:s("小红")};return(f,e)=>(c(),u(m,null,[e[0]||(e[0]=n("div",null,"es6可遍历对象",-1)),n("p",null,r(t.name)+" "+r(l(a).username),1)],64))}});export{d as default};
