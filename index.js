@@ -15,11 +15,6 @@ app.get('/', (req, res) => {
 
 app.use(Router);
 
-const { sequelize } = require('./models/file');
-
-sequelize.sync().then(() => {
-  console.log('数据库已同步');
-  app.listen(port, () => {
+app.listen(port, () => {
     console.log(`服务器已启动，监听端口 ${port}`);
-  });
 });
