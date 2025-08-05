@@ -11,7 +11,7 @@ router.use('/token', tokenRouter);
 const users = require('./users');
 router.use(users);
 
-const uploadRouter = require("./upload/upload.js");
+const uploadRouter = require("./upload/upload-secure.js");
 router.use(uploadRouter);
 
 const testapi = require("./test");
