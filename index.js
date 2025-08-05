@@ -15,6 +15,22 @@ app.get('/', (req, res) => {
 
 app.use(Router);
 
+// SPA路由配置：所有未匹配的路径返回index.html
+app.get('*', (req, res) => {
+  // 检查请求是否为API接口
+  if (req.path.startsWith('/api') || req.path.startsWith('/token')) {
+    return res.status(404).json({
+      error: '接口不存在',
+      code: 404,
+      path: req.path
+    });
+  }
+  
+  // 返回SPA的index.html
+  res.sendFile(path.resolve(__dirname, './public/index.html'));
+});
+
 app.listen(port, () => {
     console.log(`服务器已启动，监听端口 ${port}`);
+    console.log(`SPA路由已启用，所有未匹配路径将返回index.html`);
 });
