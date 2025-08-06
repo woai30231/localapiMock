@@ -1,1 +1,0 @@
-import{_ as s,c as t,o as n,f as o}from"./index-DF-p73TQ.js";const r={},c={style:{padding:"20px 40px"}};function a(d,e){return n(),t("div",c,e[0]||(e[0]=[o("h2",null,"vueuse页面",-1)]))}const u=s(r,[["render",a]]);export{u as default};
