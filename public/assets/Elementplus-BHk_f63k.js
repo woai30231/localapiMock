@@ -1,0 +1,1 @@
+import t from"./ElCom-DpM4Q9ee.js";import{e as o,c as s,f as a,a as n,o as r,_ as l}from"./index-D-Pu53Ky.js";import"./request-CV6DRO4P.js";const p={class:"Container"},c=o({__name:"Elementplus",setup(m){return(_,e)=>(r(),s("div",p,[e[0]||(e[0]=a("h2",{style:{"text-align":"center"}},"element-plus",-1)),n(t)]))}}),u=l(c,[["__scopeId","data-v-48b5149a"]]);export{u as default};
