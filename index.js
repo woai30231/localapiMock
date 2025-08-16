@@ -28,17 +28,14 @@ app.get('*', (req, res) => {
   }
   
   // 返回SPA的index.html
-  if(req.path.startsWith('/vue-app')){
+  if(req.path.startsWith('/react-app')){
+    res.sendFile(path.resolve(__dirname, './public/react-app/index.html'));
+  }else if(req.path.startsWith('/vue-app')){
     res.sendFile(path.resolve(__dirname, './public/vue-app/index.html'));
   }else{
-    res.status(404).json({
-      code:404,
-      message:'你访问的资源不存在',
-      path:req.path,
-      method:req.method,
-      error:'你访问的资源不存在'
-    })
-  }
+    res.status(200).sendFile(path.resolve(__dirname,'./public/index.html'))
+  };
+
 });
 
 app.listen(port, () => {

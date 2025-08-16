@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>个人网站 导航中心</title>
+  <style>
+    /* 全局重置与基础布局 */
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    body {
+      /* 渐变背景提升高级感，可自定义渐变方向/颜色 */
+      background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-family: "Microsoft YaHei", sans-serif;
+      padding: 40px 20px;
+    }
+
+    /* 卡片容器：承载所有链接 */
+    .card-container {
+      display: flex;
+      flex-wrap: wrap; /* 多链接时自动换行 */
+      justify-content: center;
+      gap: 24px;       /* 链接卡片间距 */
+      width: 100%;
+      max-width: 1200px;
+    }
+
+    /* 单个链接卡片 */
+    .app-card {
+      position: relative;
+      width: 280px;
+      height: 120px;
+      background-color: #fff;
+      border-radius: 16px;
+      box-shadow: 0 8px 24px rgba(0,0,0,0.12);
+      overflow: hidden;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    /* 卡片 hover 动效 */
+    .app-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 12px 32px rgba(0,0,0,0.18);
+    }
+    /* 激活态（可选，点击后短暂反馈） */
+    .app-card:active {
+      transform: translateY(2px);
+      box-shadow: 0 6px 16px rgba(0,0,0,0.15);
+    }
+
+    /* 卡片背景渐变（可选，给卡片加层次感） */
+    .app-card::before {
+      content: "";
+      position: absolute;
+      width: 120%;
+      height: 60px;
+      background: linear-gradient(90deg, rgba(131,58,180,0.1) 0%, rgba(253,29,29,0.05) 50%, rgba(252,176,69,0.1) 100%);
+      top: -10px;
+      left: -10%;
+      z-index: 1;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .app-card:hover::before {
+      opacity: 1;
+    }
+
+    /* 链接文字样式 */
+    .app-card a {
+      position: relative;
+      z-index: 2; /* 确保文字在渐变背景上层 */
+      text-decoration: none;
+      color: #333;
+      font-size: 20px;
+      font-weight: 500;
+      transition: color 0.3s;
+    }
+    .app-card:hover a {
+      color: #409eff; /* hover 时文字变色强调 */
+    }
+
+    /* 标题增强（可放顶部说明） */
+    .page-title {
+      position: absolute;
+      top: 20px;
+      left: 50%;
+      transform: translateX(-50%);
+      font-size: 28px;
+      color: #333;
+      font-weight: 600;
+      text-shadow: 0 2px 4px rgba(255,255,255,0.8);
+    }
+
+    /* 响应式适配：小屏幕下调整布局 */
+    @media (max-width: 768px) {
+      .app-card {
+        width: 100%;
+        max-width: 320px;
+      }
+      .page-title {
+        font-size: 24px;
+        top: 10px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <!-- 页面标题（可选，增强主题） -->
+  <h2 class="page-title">应用导航</h2>
+  
+  <!-- 卡片容器 -->
+  <div class="card-container">
+    <div class="app-card">
+      <a href="/vue-app" target="_blank">浏览 Vue app</a>
+    </div>
+    <div class="app-card">
+      <a href="/react-app" target="_blank">浏览 React app</a>
+    </div>
+    <!-- 可扩展新链接 -->
+    <!-- <div class="app-card">
+      <a href="#">浏览 Angular app</a>
+    </div>
+    <div class="app-card">
+      <a href="#">浏览 Svelte app</a>
+    </div> -->
+  </div>
+</body>
+</html>
