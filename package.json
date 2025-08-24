@@ -11,6 +11,7 @@
     "bcryptjs": "^3.0.2",
     "dotenv": "^17.2.1",
     "express": "^4.18.2",
+    "express-static-gzip": "^2.2.0",
     "jsonwebtoken": "^9.0.2",
     "multer": "^2.0.2",
     "mysql2": "^3.14.2",

@@ -3,10 +3,23 @@ const app = express();
 require("dotenv").config({path:"./.env.port"})
 const port = process.env.site_port;
 const path = require('path');
+const expressStaticGzip = require('express-static-gzip');
 app.use(express.json());
 app.use(express.urlencoded({extended:true}))
-app.use(express.static(path.resolve(__dirname,'./public')))
-app.use("/client-upload",express.static(path.resolve(__dirname,'./client-upload')))
+app.use(expressStaticGzip(path.resolve(__dirname,'./public'), {
+  enableBrotli: true,
+  orderPreference: ['br', 'gz'],
+  serveStatic: {
+    index: false
+  }
+}));
+app.use("/client-upload", expressStaticGzip(path.resolve(__dirname,'./client-upload'), {
+  enableBrotli: true,
+  orderPreference: ['br', 'gz'],
+  serveStatic: {
+    index: false
+  }
+}));
 
 const Router = require("./routers");
 
@@ -32,6 +45,8 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, './public/react-app/index.html'));
   }else if(req.path.startsWith('/vue-app')){
     res.sendFile(path.resolve(__dirname, './public/vue-app/index.html'));
+  }else if(req.path.startsWith('/vue-admin')){
+    res.sendFile(path.resolve(__dirname, './public/vue-admin/index.html'));
   }else{
     res.status(200).sendFile(path.resolve(__dirname,'./public/index.html'))
   };
