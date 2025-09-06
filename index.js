@@ -47,8 +47,10 @@ app.get('*', (req, res) => {
     res.sendFile(path.resolve(__dirname, './public/vue-app/index.html'));
   }else if(req.path.startsWith('/vue-admin')){
     res.sendFile(path.resolve(__dirname, './public/vue-admin/index.html'));
-  }else{
+  }else if(req.path == '/' || req.path == '' || req.path == '/index.html'){
     res.status(200).sendFile(path.resolve(__dirname,'./public/index.html'))
+  }else{
+    res.status(404).sendFile(path.resolve(__dirname,'./notfound.html'))
   };
 
 });
