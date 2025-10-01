@@ -7,7 +7,7 @@ const path = require("path");
 router.get("/test/defer", (req, res) => {
     setTimeout(() => {
         const scriptPath = path.join(__dirname, "script.js");
-        res.sendFile(scriptPath, (err) => {
+        res.setHeader('Content-Type', 'application/javascript').sendFile(scriptPath, (err) => {
             if (err) {
                 res.status(500).json({
                     code: 500,
@@ -16,7 +16,23 @@ router.get("/test/defer", (req, res) => {
                 });
             }
         });
-    }, 2000);
+    }, 5000);
+});
+
+// 延迟路由 - 1秒后直接发送script.js文件
+router.get("/test/defer1", (req, res) => {
+    setTimeout(() => {
+        const scriptPath = path.join(__dirname, "script1.js");
+        res.setHeader('Content-Type', 'application/javascript').sendFile(scriptPath, (err) => {
+            if (err) {
+                res.status(500).json({
+                    code: 500,
+                    message: "发送文件失败",
+                    data: null
+                });
+            }
+        });
+    }, 1000);
 });
 
 router.all("/test/api",(req,res)=>{
