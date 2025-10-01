@@ -10,3 +10,4 @@ node_modules/
 
 .env
 .env.port
+self-test.js
